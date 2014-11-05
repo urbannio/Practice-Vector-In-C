@@ -9,16 +9,16 @@ enum _uVECTOR_TYPE
 {
 	uVECTOR_TYPE_INT		  = 1,
 	uVECTOR_TYPE_CHAR		  = 2,
-	uVECTOR_TYPE_FLOAT		= 3,
-	uVECTOR_TYPE_DOUBLE		= 4
+	uVECTOR_TYPE_FLOAT		  = 3,
+	uVECTOR_TYPE_DOUBLE	  	  = 4
 };
 typedef enum _uVECTOR_TYPE uVectorType;
 
 struct _uVector
 {
-	/***********************
-	*	member variable      *
-  ***********************/
+/***********************
+*member variable       *
+***********************/
 	void *container;
 	size_t elem_size;
 	
@@ -30,9 +30,9 @@ struct _uVector
 	
 	uVectorType Type;
 	
-	/***********************
-	*	member function      *
-  ***********************/
+/***********************
+*member function       *
+***********************/
 	
 	/*Capacity*/
 	size_t (*size)(struct _uVector*);	// point to _getSize, Returns the number of elements in the vector.
@@ -51,7 +51,7 @@ typedef struct _uVector uVector;
 uVector *newv(uVectorType ,size_t );
 
 /***********************************************************
-*  < member function in struct _uVector >				           *
+*  < member function in struct _uVector >		   *
 *  note : start with '_' means it will                     *
 *  be pointed by another function has different name       *
 ***********************************************************/
