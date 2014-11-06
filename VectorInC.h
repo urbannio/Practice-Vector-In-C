@@ -41,7 +41,7 @@ struct _uVector
 	//size_t (*capacity)(struct _uVector*); // point to _capacity, Returns the size of the storage space currently allocated for the vector, expressed in terms of elements.
 	bool (*empty)(struct _uVector*); // point to _empty, test whether the vector is empty if it is empty returm true
 	void (*push_back)(struct _uVector*, void*); // point to _pushBack, Adds a new element at the end of the vector, after its current last element. The content of val is copied (or moved) to the new element.
-	
+	void* (*at)(struct _vector*, size_t);
 	/*Modification*/
 
 };
@@ -60,5 +60,5 @@ size_t _getMaxSize(struct _uVector*);
 void _resize(struct _uVector* ,size_t);
 bool _empty(struct _uVector*);
 void _pushBack(struct _uVector*, void*);
-
+void _at(struct _vector*, size_t);
 #endif
