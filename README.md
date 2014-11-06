@@ -6,7 +6,8 @@ It's a practice about dynamic memory access with implement a vector like api  in
 /******************
 *    demo code    *
 ******************/
-int *a,*b;
+
+	int *a,*b;
 	int ele1 = 1;
 	int ele2 = 2;
 	int ele3 = 3;
