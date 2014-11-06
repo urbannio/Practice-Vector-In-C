@@ -1,66 +1,95 @@
 #include "VectorInC.h"
 
-uVector *newv(uVectorType uvectortype,size_t max_num_elem)
+uVector *newv(uVectorType uvectortype)
 {	
 	uVector *uvector = (uVector*)malloc(sizeof(uVector));
 	
 	uvector->Type = uvectortype;
-	uvector->max_num_elem = max_num_elem;
-	uvector->max_size = &_getMaxSize;
 	uvector->num_elem = 0;
+	uvector->size_vec = 0;  
+
 	uvector->push_back = &_pushBack;
 	uvector->at = &_at;
+	uvector->pop_back = &_popBack;
+	uvector->resize = &_resize;
+	
 	switch(uvectortype)
 	{
 		case uVECTOR_TYPE_INT:
-			
-			uvector->max_size_vec = max_num_elem*sizeof(int);
-			uvector->container = malloc(uvector->max_size_vec);
 			uvector->elem_size = sizeof(int);
-			return uvector;
 		break;
 		
 		case uVECTOR_TYPE_CHAR:
-			
-			uvector->max_size_vec = max_num_elem*sizeof(char);
-			uvector->container = malloc(uvector->max_size_vec);
 			uvector->elem_size = sizeof(char);
-			return uvector;
 		break;
 		
 		case uVECTOR_TYPE_FLOAT:
-			
-			uvector->max_size_vec = max_num_elem*sizeof(float);
-			uvector->container = malloc(uvector->max_size_vec);
 			uvector->elem_size = sizeof(float);
-			return uvector;
 		break;
 		
 		case uVECTOR_TYPE_DOUBLE:
-			
-			uvector->max_size_vec = max_num_elem*sizeof(double);
-			uvector->container = malloc(uvector->max_size_vec);
 			uvector->elem_size = sizeof(double);
-			return uvector;
 		break;
 	}
+	             
+	return uvector;
 }
-size_t _getSize(struct _uVector *uvector)
+size_t _size(struct _uVector *uvector)
 {
 	return uvector->num_elem;
 }
 
-size_t _getMaxSize(struct _uVector *uvector)
-{
-	return uvector->max_size_vec;
-}
-
 void _pushBack(struct _uVector* uvector, void* newelem)
 {
+	_resize(uvector,uvector->num_elem+1);
 	memcpy(uvector->container+uvector->num_elem*uvector->elem_size, newelem, uvector->elem_size);
 	uvector->num_elem++;
+	//_debug(uvector);
 }
-void* _at(struct _uVector* uvector, size_t offset)
+
+void* _at(struct _uVector* uvector, int offset)
 {
-	return uvector->container+offset*uvector->elem_size; 
+	return uvector->container+offset*uvector->elem_size;
+}
+
+
+void _resize(struct _uVector* uvector,size_t nsize)
+{	
+	if(uvector->size_vec==0)
+	{
+		uvector->container = malloc(nsize*uvector->Type);
+		uvector->size_vec = nsize*uvector->Type;
+		return;
+	}
+	if(nsize==uvector->num_elem)return;
+	
+	void *tmp = malloc(nsize*uvector->elem_size);
+	if(nsize<uvector->num_elem)
+	{
+		memcpy(tmp, uvector->container, nsize*uvector->elem_size);
+		uvector->num_elem = nsize;
+	}
+	else
+	{
+		memcpy(tmp, uvector->container, uvector->elem_size*uvector->num_elem);
+	}
+	
+	free(uvector->container);
+	uvector->container = malloc(nsize*uvector->elem_size);
+	memcpy(uvector->container, tmp, uvector->elem_size*nsize);
+	free(tmp);
+	uvector->size_vec=nsize*uvector->elem_size;
+	//_debug(uvector);
+}
+void _popBack(struct _uVector* uvector)
+{
+	_resize(uvector,uvector->num_elem-1);
+	uvector->num_elem--;
+}
+
+extern void _debug(struct _uVector* uvector)
+{
+	printf("elem_size    = %d\n",uvector->elem_size);
+	printf("num_elem     = %d\n",uvector->num_elem);
+	printf("size_vec     = %d\n\n",uvector->size_vec);
 }
