@@ -8,7 +8,8 @@ uVector *newv(uVectorType uvectortype,size_t max_num_elem)
 	uvector->max_num_elem = max_num_elem;
 	uvector->max_size = &_getMaxSize;
 	uvector->num_elem = 0;
-	
+	uvector->push_back = &_pushBack;
+	uvector->at = &_at;
 	switch(uvectortype)
 	{
 		case uVECTOR_TYPE_INT:
@@ -56,5 +57,10 @@ size_t _getMaxSize(struct _uVector *uvector)
 
 void _pushBack(struct _uVector* uvector, void* newelem)
 {
-	uvector->container[uvector->num_elem] = newelem;
+	memcpy(uvector->container+uvector->num_elem*uvector->elem_size, newelem, uvector->elem_size);
+	uvector->num_elem++;
+}
+void* _at(struct _uVector* uvector, size_t offset)
+{
+	return uvector->container+offset*uvector->elem_size; 
 }
