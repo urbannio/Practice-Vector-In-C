@@ -49,6 +49,7 @@ void _pushBack(struct _uVector* uvector, void* newelem)
 
 void* _at(struct _uVector* uvector, int offset)
 {
+	if(offset>uvector->num_elem)return NULL;
 	return uvector->container+offset*uvector->elem_size;
 }
 
