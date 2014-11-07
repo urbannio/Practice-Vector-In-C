@@ -32,7 +32,7 @@ int main()
 	
 	
 	b=vector->at(vector,5);
-	printf("%d\n",*b);
+	printf("---%d\n",*b);
 	
 	
 	// test resize 
@@ -48,6 +48,22 @@ int main()
 	
 	//test pop back
 	vector->pop_back(vector);
+	a=vector->at(vector,50);
+	if(a==NULL)printf("null\n");
+	else printf("%d\n",*a);
+	
+	
+	a=vector->at(vector,100);
+	if(a==NULL)printf("null\n");
+	else printf("%d\n",*a);
+	
+	a=vector->at(vector,2);
+	if(a==NULL)printf("null\n");
+	else printf("%d\n",*a);
+	
+	a=vector->at(vector,1);
+	if(a==NULL)printf("null\n");
+	else printf("%d\n",*a);
 	a=vector->at(vector,0);
 	printf("%d\n",*a);
 	
