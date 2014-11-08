@@ -2,16 +2,19 @@
 
 uVector *newv(uVectorType uvectortype)
 {	
+	
 	uVector *uvector = (uVector*)malloc(sizeof(uVector));
 	
 	uvector->Type = uvectortype;
 	uvector->num_elem = 0;
 	uvector->size_vec = 0;  
 
-	uvector->push_back = &_pushBack;
-	uvector->at = &_at;
-	uvector->pop_back = &_popBack;
-	uvector->resize = &_resize;
+	uvector->push_back  = &_pushBack;
+	uvector->at 		= &_at;
+	uvector->pop_back   = &_popBack;
+	uvector->resize     = &_resize;
+	uvector->empty      = &_empty;
+	uvector->clear      = &_clear;
 	
 	switch(uvectortype)
 	{
@@ -34,6 +37,7 @@ uVector *newv(uVectorType uvectortype)
 	             
 	return uvector;
 }
+
 size_t _size(struct _uVector *uvector)
 {
 	return uvector->num_elem;
@@ -41,10 +45,10 @@ size_t _size(struct _uVector *uvector)
 
 void _pushBack(struct _uVector* uvector, void* newelem)
 {
-	_resize(uvector,uvector->num_elem+1);
+	uvector->resize(uvector,uvector->num_elem+1);
 	memcpy(uvector->container+uvector->num_elem*uvector->elem_size, newelem, uvector->elem_size);
 	uvector->num_elem++;
-	//_debug(uvector);
+	_debug(uvector);
 }
 
 void* _at(struct _uVector* uvector, int offset)
@@ -53,9 +57,15 @@ void* _at(struct _uVector* uvector, int offset)
 	return uvector->container+offset*uvector->elem_size;
 }
 
-
 void _resize(struct _uVector* uvector,size_t nsize)
 {	
+	
+	if(nsize==0)
+	{
+		uvector->clear(uvector);
+		return;
+	}
+	
 	if(uvector->size_vec==0)
 	{
 		uvector->container = malloc(nsize*uvector->Type);
@@ -80,12 +90,29 @@ void _resize(struct _uVector* uvector,size_t nsize)
 	memcpy(uvector->container, tmp, uvector->elem_size*nsize);
 	free(tmp);
 	uvector->size_vec=nsize*uvector->elem_size;
-	//_debug(uvector);
+	_debug(uvector);
 }
+
+void _clear(struct _uVector* uvector)
+{
+	free(uvector->container);
+	uvector->num_elem = 0;
+	uvector->size_vec = 0;
+}
+
 void _popBack(struct _uVector* uvector)
 {
 	_resize(uvector,uvector->num_elem-1);
 	uvector->num_elem--;
+}
+
+int _empty(struct _uVector* uvector)
+{
+	_debug(uvector);
+	if(uvector->num_elem>0)
+		return 0;
+	else 
+		return 1;
 }
 
 extern void _debug(struct _uVector* uvector)
