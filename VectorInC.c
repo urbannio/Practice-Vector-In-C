@@ -15,6 +15,7 @@ uVector *newv(uVectorType uvectortype)
 	uvector->resize     = &_resize;
 	uvector->empty      = &_empty;
 	uvector->clear      = &_clear;
+	uvector->front      = &_front;
 	
 	switch(uvectortype)
 	{
@@ -34,7 +35,7 @@ uVector *newv(uVectorType uvectortype)
 			uvector->elem_size = sizeof(double);
 		break;
 	}
-	             
+	
 	return uvector;
 }
 
@@ -114,6 +115,8 @@ int _empty(struct _uVector* uvector)
 	else 
 		return 1;
 }
+
+
 
 extern void _debug(struct _uVector* uvector)
 {

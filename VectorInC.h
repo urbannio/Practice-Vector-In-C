@@ -26,6 +26,7 @@ struct _uVector
 	size_t num_elem;    // number of element in the vector
 	size_t size_vec;    // (number of element in the vector) * (size of one element)
 	
+	
 	uVectorType Type; 
 	
 	/***********************
@@ -41,6 +42,7 @@ struct _uVector
 	void*    (*at)        (struct _uVector*, int);
 	void     (*pop_back)  (struct _uVector*);                        // point to _popBack, Removes the last element in the vector
 	void     (*clear)     (struct _uVector*);
+	void*    (*front)     (struct _uVector*);
 	/*Modification*/
 
 };
@@ -66,4 +68,5 @@ void    _pushBack  (struct _uVector*, void*);
 void*   _at        (struct _uVector*, int);
 void    _popBack   (struct _uVector*);
 void    _clear     (struct _uVector*);
+void*   _front     (struct _uVector*)
 #endif
