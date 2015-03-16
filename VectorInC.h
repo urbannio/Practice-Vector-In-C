@@ -68,5 +68,5 @@ void    _pushBack  (struct _uVector*, void*);
 void*   _at        (struct _uVector*, int);
 void    _popBack   (struct _uVector*);
 void    _clear     (struct _uVector*);
-void*   _front     (struct _uVector*)
+void*   _front     (struct _uVector*);
 #endif

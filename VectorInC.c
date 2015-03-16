@@ -1,5 +1,5 @@
 #include "VectorInC.h"
-
+#include <stdio.h>
 uVector *newv(uVectorType uvectortype)
 {	
 	
@@ -57,6 +57,13 @@ void* _at(struct _uVector* uvector, int offset)
 	if(offset>uvector->num_elem)return NULL;
 	return uvector->container+offset*uvector->elem_size;
 }
+
+void* _front(struct _uVector* uvector)
+{
+	return uvector->container;
+}
+
+
 
 void _resize(struct _uVector* uvector,size_t nsize)
 {	

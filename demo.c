@@ -1,8 +1,7 @@
 #include "VectorInC.h"
+int main(){int *a;
+int *b;
 
-
-int main()
-{	int *a,*b;
 	int ele1 = 1;
 	int ele2 = 2;
 	int ele3 = 3;
