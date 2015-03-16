@@ -1,5 +1,5 @@
 #include "VectorInC.h"
-#include <stdio.h>
+
 uVector *newv(uVectorType uvectortype)
 {	
 	
