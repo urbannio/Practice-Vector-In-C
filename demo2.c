@@ -3,7 +3,7 @@
 
 int main()
 {
-	double *a;
+double a;
 double e1 = 1.111;
 double e2 = 2.222;
 double e3 = 3.333;
@@ -19,8 +19,8 @@ vector->push_back(vector,&e4);
 vector->push_back(vector,&e5);
 
 
-a = vector->front(vector);
-printf("%lf",*a);
+a =*((double*)(vector->front(vector)));
+printf("%lf",a);
 return 0;
 
 }
